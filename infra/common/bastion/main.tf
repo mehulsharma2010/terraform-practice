@@ -7,7 +7,7 @@ module "ec2-instance" {
   ami               = data.aws_ami.ubuntu_2204.id
   instance_type     = var.instance_type
   availability_zone = var.availability_zone
-  key_name          = var.create_key_pair ? aws_key_pair.this[0].key_name : var.key_name
+  key_name          = var.key_name
   # Network Settings
   subnet_id                   = values(local.public_subnets)[0]
   security_group_vpc_id       = data.terraform_remote_state.network.outputs.vpc_id
@@ -49,7 +49,6 @@ module "ec2-instance" {
     { "Name" = var.ec2_name },
   )
 }
-
 
 resource "aws_key_pair" "this" {
   count      = var.create_key_pair ? 1 : 0
