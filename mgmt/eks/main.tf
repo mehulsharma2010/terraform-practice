@@ -30,5 +30,8 @@ control_plane_subnet_ids = [
   data.terraform_remote_state.network.outputs.private_subnet_ids[0],
   data.terraform_remote_state.network.outputs.private_subnet_ids[1]
 ]
+  enable_cluster_creator_admin_permissions = var.enable_cluster_creator_admin_permissions
+  access_entries                           = var.access_entries
+
 }
 
