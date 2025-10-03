@@ -102,11 +102,14 @@ eks_managed_node_groups = {
     min_size                    = 2
     max_size                    = 4
     capacity_type               = "SPOT"
+    key_name                    = "ot-key"
     create_launch_template      = true
     use_custom_launch_template  = false
-    launch_template_name        = "eks-ng1-launch-template"
-    launch_template_description = "Custom launch template for eks-ng1"
-    launch_template_tags        = { Environment = "mgmt", Owner = "DevOps" }
+
+    launch_template_tags        = { 
+      Environment = "mgmt", 
+      Owner = "DevOps" 
+    }
 
     disk_size                    = 20
     iam_role_additional_policies = {}
@@ -116,7 +119,6 @@ eks_managed_node_groups = {
       Environment = "mgmt"
       Team        = "infra"
     }
-
   }
 
   rems-node = {
@@ -130,6 +132,7 @@ eks_managed_node_groups = {
     min_size                    = 1
     max_size                    = 2
     capacity_type               = "SPOT"
+    key_name                    = "ot-key"
     create_launch_template      = true
     use_custom_launch_template  = false
     launch_template_name        = "eks-ondemand-launch-template"
@@ -186,3 +189,7 @@ node_security_group_additional_rules = {
     source_cluster_security_group = true
   }
 }
+
+key_name        = "ot-key"
+create_key_pair = true
+public_key_path = "/Users/mehulsharma/.ssh/id_rsa.pub"

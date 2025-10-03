@@ -1493,10 +1493,28 @@ variable "network_bucket_key" {
   default     = ""
 }
 
-
 variable "bucket_region" {
   description = "AWS region where the S3 bucket is located"
   type        = string
-  default     = "us-east-2"
+  default     = ""
 
 }
+
+variable "key_name" {
+  description = "Key name of the Key Pair to use for the instance; which can be managed using the `aws_key_pair` resource"
+  type        = string
+  default     = null
+}
+
+variable "public_key_path" {
+  description = "Path to public SSH key used for EC2 login"
+  type        = string
+  default     = "~/.ssh/id_rsa.pub"
+}
+
+variable "create_key_pair" {
+  description = "Whether to create a new key pair"
+  type        = bool
+  default     = false
+}
+

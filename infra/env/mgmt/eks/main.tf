@@ -1,9 +1,7 @@
 module "eks" {
-  source  = "terraform-aws-modules/eks/aws"
-  version = "~> 21.0.8"
-
-  name = var.name
-
+  source                               = "terraform-aws-modules/eks/aws"
+  version                              = "~> 21.0.8"
+  name                                 = var.name
   cluster_tags                         = var.cluster_tags
   create_iam_role                      = var.create_iam_role
   create_node_iam_role                 = var.create_node_iam_role
@@ -27,5 +25,10 @@ module "eks" {
   control_plane_subnet_ids                 = values(local.private_subnets)
   enable_cluster_creator_admin_permissions = var.enable_cluster_creator_admin_permissions
   access_entries                           = var.access_entries
+}
 
+resource "aws_key_pair" "this" {
+  count      = var.create_key_pair ? 1 : 0
+  key_name   = var.key_name
+  public_key = file(var.public_key_path)
 }
