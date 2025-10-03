@@ -1,7 +1,7 @@
 region             = "ap-south-1"
-name               = "gokwik-eks-cluster-1"
+name               = "rems-eks-cluster-1"
 bucket_region      = "us-east-2"
-bucket             = "gokwik-bucket"
+bucket             = "rems-bucket"
 network_bucket_key = "ot/wrapper/infra/env/dev/network/terraform.tfstate"
 
 create_iam_role            = true
@@ -65,18 +65,32 @@ addons_timeouts = {
 
 enable_auto_mode_custom_tags = true
 
-node_security_group_name = "gokwik-eks-node-sg-nonprod"
+node_security_group_name = "rems-eks-node-sg-nonprod"
 node_security_group_tags = {
-  name        = "gokwik-eks-node-sg-nonprod"
+  name        = "rems-eks-node-sg-nonprod"
   environment = "nonprod"
   team        = "infra"
-  application = "gokwik"
+  application = "rems"
+}
+enable_cluster_creator_admin_permissions = true
+access_entries = {
+  eks-admin = {
+    principal_arn     = "arn:aws:iam::135326431947:user/Anjali-Mam1" # or IAM Role ARN
+    kubernetes_groups = ["system:masters"]
+    type              = "STANDARD"
+  }
+
+  readonly-user = {
+    principal_arn = "arn:aws:iam::135326431947:role/ReadOnlyRole"
+    kubernetes_groups = ["view"] # only read access
+    type = "STANDARD"
+  }
 }
 
 eks_managed_node_groups = {
   eks-ng1 = {
     create                       = true
-    kubernetes_version           = "1.34"
+    kubernetes_version           = "1.33"
     name                         = "eks-ng1"
    # subnet_ids                   = []
     ami_type                     = "AL2023_x86_64_STANDARD"
@@ -98,7 +112,7 @@ eks_managed_node_groups = {
 
   on-demand-ng = {
     create                      = true
-    kubernetes_version          = "1.34"
+    kubernetes_version          = "1.33"
     name                        = "on-demand-ng"
    # subnet_ids                  = []
     ami_type                    = "AL2023_x86_64_STANDARD"
