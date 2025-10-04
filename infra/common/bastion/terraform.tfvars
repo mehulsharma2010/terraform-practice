@@ -1,6 +1,6 @@
 ami_ssm_parameter = ""
 region            = "ap-south-1"
-# availability_zone = "ap-south-1a"
+ami = "ami-0bfdc7eb9b5d564f5"  # created by Packer
 create_eip      = true
 ebs_optimized   = true
 instance_type   = "t3.micro"
