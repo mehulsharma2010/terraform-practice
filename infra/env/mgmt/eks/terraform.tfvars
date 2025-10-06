@@ -102,10 +102,10 @@ eks_managed_node_groups = {
     min_size                   = 2
     max_size                   = 4
     capacity_type              = "SPOT"
-    key_name                   = "ot-key"
+    key_name                   = "ot-rems-key"
     create_launch_template     = true
     use_custom_launch_template = false
-
+    launch_template_name        = "olly-template"
     launch_template_tags = {
       Environment = "mgmt",
       Owner       = "DevOps"
@@ -115,7 +115,7 @@ eks_managed_node_groups = {
     iam_role_additional_policies = {}
     tags = {
       Name        = "olly-node"
-      type        = "on-demand"
+      type        = "spot"
       Environment = "mgmt"
       Team        = "infra"
     }
@@ -132,10 +132,10 @@ eks_managed_node_groups = {
     min_size                    = 1
     max_size                    = 2
     capacity_type               = "SPOT"
-    key_name                    = "ot-key"
+    key_name                    = "ot-rems-key"
     create_launch_template      = true
     use_custom_launch_template  = false
-    launch_template_name        = "eks-ondemand-launch-template"
+    launch_template_name        = "rems-template"
     launch_template_description = null
     launch_template_tags        = {}
     tag_specifications          = []
@@ -151,7 +151,7 @@ eks_managed_node_groups = {
     }
     tags = {
       Name        = "rems-node"
-      type        = "on-demand"
+      type        = "spot"
       Environment = "mgmt"
       Team        = "infra"
     }
