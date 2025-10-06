@@ -4,7 +4,7 @@ module "ec2-instance" {
 
   # Basic Configuration
   name              = var.ec2_name
-  ami               = var.ami      # data.aws_ami.ubuntu_2204.id
+  ami               = var.ami # data.aws_ami.ubuntu_2204.id
   instance_type     = var.instance_type
   availability_zone = var.availability_zone
   key_name          = var.key_name

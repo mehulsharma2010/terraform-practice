@@ -76,19 +76,19 @@ node_security_group_tags = {
   application = "rems"
 }
 enable_cluster_creator_admin_permissions = true
-# access_entries = {
-#   eks_admin = {
-#     principal_arn = "arn:aws:iam::017820699516:user/opstree"
-#     policy_associations = {
-#       admin = {
-#         policy_arn = "arn:aws:eks::aws:cluster-access-policy/AmazonEKSClusterAdminPolicy"
-#         access_scope = {
-#           type = "cluster"
-#         }
-#       }
-#     }
-#   }
-# }
+access_entries = {
+  eks_admin = {
+    principal_arn = "arn:aws:iam::017820699516:user/opstree"
+    policy_associations = {
+      admin = {
+        policy_arn = "arn:aws:eks::aws:cluster-access-policy/AmazonEKSClusterAdminPolicy"
+        access_scope = {
+          type = "cluster"
+        }
+      }
+    }
+  }
+}
 
 eks_managed_node_groups = {
   olly = {
@@ -96,19 +96,19 @@ eks_managed_node_groups = {
     kubernetes_version = "1.33"
     name               = "olly"
     # subnet_ids                   = []
-    ami_type                    = "AL2023_x86_64_STANDARD"
-    instance_types              = ["t3.medium"]
-    desired_size                = 2
-    min_size                    = 2
-    max_size                    = 4
-    capacity_type               = "SPOT"
-    key_name                    = "ot-key"
-    create_launch_template      = true
-    use_custom_launch_template  = false
+    ami_type                   = "AL2023_x86_64_STANDARD"
+    instance_types             = ["t3.medium"]
+    desired_size               = 2
+    min_size                   = 2
+    max_size                   = 4
+    capacity_type              = "SPOT"
+    key_name                   = "ot-key"
+    create_launch_template     = true
+    use_custom_launch_template = false
 
-    launch_template_tags        = { 
-      Environment = "mgmt", 
-      Owner = "DevOps" 
+    launch_template_tags = {
+      Environment = "mgmt",
+      Owner       = "DevOps"
     }
 
     disk_size                    = 20
@@ -190,6 +190,6 @@ node_security_group_additional_rules = {
   }
 }
 
-key_name        = "ot-key"
-create_key_pair = true
+key_name        = "ot-rems-key"
+create_key_pair = false
 public_key_path = "/Users/mehulsharma/.ssh/id_rsa.pub"

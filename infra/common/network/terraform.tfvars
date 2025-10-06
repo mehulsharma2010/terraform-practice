@@ -29,7 +29,7 @@ create_nat_gateway = true
 ##############################
 # NACL Configuration
 ##############################
-create_nacl = false
+create_nacl             = false
 random_alphanumeric_len = 4
 
 bu       = "ot"

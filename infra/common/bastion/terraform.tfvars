@@ -1,12 +1,12 @@
 ami_ssm_parameter = ""
 region            = "ap-south-1"
-ami = "ami-0bfdc7eb9b5d564f5"  # created by Packer
-create_eip      = true
-ebs_optimized   = true
-instance_type   = "t3.micro"
-key_name        = "ot-key"
-create_key_pair = true
-public_key_path = "/Users/mehulsharma/.ssh/id_rsa.pub"
+ami               = "ami-0bfdc7eb9b5d564f5" # created by Packer
+create_eip        = true
+ebs_optimized     = true
+instance_type     = "t3.micro"
+key_name          = "ot-rems-key"
+create_key_pair   = false
+public_key_path   = "/Users/mehulsharma/.ssh/id_rsa.pub"
 
 create_security_group          = true
 security_group_use_name_prefix = true
@@ -49,7 +49,7 @@ instance_tags = {
 ec2_name = "bastion-host"
 
 root_block_device = {
-  volume_size           = 50
+  volume_size           = 30
   volume_type           = "gp3"
   delete_on_termination = true
 }
