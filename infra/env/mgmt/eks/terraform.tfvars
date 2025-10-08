@@ -1,11 +1,6 @@
 
-region = "us-east-2"
+region = "ap-south-1"
 name   = "rems-olly"
-
-# bucket configuration
-bucket_region      = "ap-south-1"
-bucket             = "ot-terraform-state-bucket"
-network_bucket_key = "infra/common/network/terraform.tfstate"
 
 create_iam_role            = true
 create_node_iam_role       = true
@@ -109,7 +104,7 @@ node_security_group_tags = {
   name        = "rems-eks-node-sg-mgmt"
   environment = "mgmt"
   team        = "infra"
-  application = "rems"  
+  application = "rems"
 }
 enable_cluster_creator_admin_permissions = true
 access_entries = {
@@ -195,8 +190,6 @@ eks_managed_node_groups = {
   }
 
 }
-
-
 
 key_name        = "ot-rems-key"
 create_key_pair = false

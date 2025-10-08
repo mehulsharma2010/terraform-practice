@@ -1,8 +1,8 @@
 module "alb_controller_irsa" {
   source  = "terraform-aws-modules/iam/aws//modules/iam-role-for-service-accounts-eks"
-  version = "~> 5.0" 
+  version = "~> 5.0"
 
-  role_name = "${var.name}-alb-controller-irsa"
+  role_name                              = "${var.name}-alb-controller-irsa"
   attach_load_balancer_controller_policy = true
 
   oidc_providers = {
@@ -53,33 +53,33 @@ resource "aws_key_pair" "this" {
 }
 
 
-###############################################################################
-# AWS Load Balancer Controller (Helm)
-###############################################################################
+# ###############################################################################
+# # AWS Load Balancer Controller (Helm)
+# ###############################################################################
 
-resource "helm_release" "alb_controller" {
-  count      = var.enable_alb_controller ? 1 : 0
-  name       = "aws-load-balancer-controller"
-  repository = "https://aws.github.io/eks-charts"
-  chart      = "aws-load-balancer-controller"
-  namespace  = "kube-system"
-  version    = "1.9.2"
+# resource "helm_release" "alb_controller" {
+#   count      = var.enable_alb_controller ? 1 : 0
+#   name       = "aws-load-balancer-controller"
+#   repository = "https://aws.github.io/eks-charts"
+#   chart      = "aws-load-balancer-controller"
+#   namespace  = "kube-system"
+#   version    = "1.9.2"
 
-  values = [
-    yamlencode({
-      clusterName = module.eks.cluster_name
-      region      = var.region
-      vpcId       = var.vpc_id
-      serviceAccount = {
-        create = false
-        name   = "aws-load-balancer-controller"
-        annotations = {
-          "eks.amazonaws.com/role-arn" = module.alb_controller_irsa.iam_role_arn
-        }
-      }
-    })
-  ]
+#   values = [
+#     yamlencode({
+#       clusterName = module.eks.cluster_name
+#       region      = var.region
+#       vpcId       = var.vpc_id
+#       serviceAccount = {
+#         create = false
+#         name   = "aws-load-balancer-controller"
+#         annotations = {
+#           "eks.amazonaws.com/role-arn" = module.alb_controller_irsa.iam_role_arn
+#         }
+#       }
+#     })
+#   ]
 
-  depends_on = [module.alb_controller_irsa, module.eks]
-}
+#   depends_on = [module.alb_controller_irsa, module.eks]
+# }
 

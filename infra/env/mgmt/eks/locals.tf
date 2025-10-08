@@ -11,20 +11,20 @@ locals {
   node_sg_additional_rules = {
 
     allow_ssh_from_bastion = {
-      protocol                    = "tcp"
-      from_port                   = 22
-      to_port                     = 22
-      type                        = "ingress"
-      description                 = "Allow SSH access to nodes from Bastion host"
+      protocol                     = "tcp"
+      from_port                    = 22
+      to_port                      = 22
+      type                         = "ingress"
+      description                  = "Allow SSH access to nodes from Bastion host"
       referenced_security_group_id = local.bastion_sg_id
     }
 
     allow_ssh_from_bastion = {
-      protocol                    = "https"
-      from_port                   = 443
-      to_port                     = 443
-      type                        = "ingress"
-      description                 = "Allow SSH access to nodes from Bastion host"
+      protocol                     = "https"
+      from_port                    = 443
+      to_port                      = 443
+      type                         = "ingress"
+      description                  = "Allow SSH access to nodes from Bastion host"
       referenced_security_group_id = local.bastion_sg_id
     }
 
