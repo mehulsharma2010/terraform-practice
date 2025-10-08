@@ -1,7 +1,7 @@
 # iam-policy.tf
 
 resource "aws_iam_policy" "opstree-rems-terraform" {
-  name        = "opstree-rems-terraform"
+  name        = "opstree-rems-terraform-v2"
   description = "IAM policy for EC2 wrapper with EKS, IAM, EC2, ELB, Logs, and SSM access"
 
   policy = jsonencode({

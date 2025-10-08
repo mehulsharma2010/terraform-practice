@@ -1,13 +1,12 @@
 ami_ssm_parameter = ""
-region            = "us-east-2"
-ami               = ""
+region            = "ap-south-1"
+ami               = "ami-0bfdc7eb9b5d564f5"
 create_eip        = true
 ebs_optimized     = true
-instance_type     = "t2.micro"
-key_name          = "rems-key"
+instance_type     = "t3.medium"
+key_name          = "ot-rems-key"
 create_key_pair   = false
-public_key_path   = "/home/anjalidhiman/.ssh/id_ed25519.pub"
-
+public_key_path   = "/home/mehulsharma/.ssh/id_rsa.pub"
 
 create_security_group          = true
 create_iam_instance_profile    = true
