@@ -4,7 +4,7 @@ module "ec2-instance" {
 
   # Basic Configuration
   name              = var.ec2_name
-  ami               = var.ami # data.aws_ami.ubuntu_2204.id
+  ami               = data.aws_ami.ubuntu_2204.id
   instance_type     = var.instance_type
   availability_zone = var.availability_zone
   key_name          = var.key_name
@@ -27,13 +27,16 @@ module "ec2-instance" {
   metadata_options        = var.metadata_options
   instance_market_options = var.instance_market_options
   launch_template         = var.launch_template
-  user_data               = var.user_data
+  user_data = file("${path.module}/install-openvpn.sh")
 
   # IAM Role/Profile
   create_iam_instance_profile   = var.create_iam_instance_profile
+  iam_role_policies = {
+    opstree_rems_policy = aws_iam_policy.opstree-rems-terraform.arn
+  }
   iam_role_use_name_prefix      = var.ec2_iam_role_use_name_prefix
   iam_role_permissions_boundary = var.ec2_iam_role_permissions_boundary
-  iam_role_policies             = var.ec2_iam_role_policies
+  # iam_role_policies             = var.iam_role_policies
   # Security Group Configuration
   create_security_group          = var.create_security_group
   security_group_name            = var.security_group_name

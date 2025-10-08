@@ -1,7 +1,7 @@
 ##############################
 # VPC
 ##############################
-region               = "ap-south-1"
+region               = "us-east-2"
 vpc_cidr             = "10.0.0.0/16"
 instance_tenancy     = "default"
 enable_dns_support   = false
@@ -13,7 +13,7 @@ cluster_name         = "observability-rems"
 ##############################
 subnet_names = ["olly-rems-public-1", "olly-rems-public-2", "olly-rems-private-1", "olly-rems-private-2"]
 subnet_cidrs = ["10.0.1.0/24", "10.0.2.0/24", "10.0.3.0/24", "10.0.4.0/24"]
-subnet_azs   = ["ap-south-1a", "ap-south-1b", "ap-south-1a", "ap-south-1b"]
+subnet_azs   = ["us-east-2a", "us-east-2b", "us-east-2a", "us-east-2b"]
 
 public_route_table_name  = "olly-rems-public-rt"
 private_route_table_name = "olly-rems-private-rt"
@@ -54,5 +54,6 @@ create_nlb     = false
 
 create_key_pair    = true
 create_private_key = false
-key_pair_name      = "ot-rems-key"
-public_key_path    = "/Users/mehulsharma/.ssh/id_rsa.pub" # Leave blank if you're generating the key
+key_pair_name      = "rems-key"
+public_key_path = "/home/anjalidhiman/practice/keys/bastion-key.pub"
+# public_key_path    = "/Users/mehulsharma/.ssh/id_rsa.pub" # Leave blank if you're generating the key

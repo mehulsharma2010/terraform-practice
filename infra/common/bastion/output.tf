@@ -24,3 +24,22 @@ output "ami_id" {
   value       = module.ec2-instance.ami
   description = "The AMI ID used for the instance"
 }
+
+output "public_ip" {
+  value       = module.ec2-instance.public_ip
+  description = "The public IP address assigned to the instance"
+  
+}
+
+output "iam_role_arn" {
+  value       = module.ec2-instance.iam_role_arn
+  description = "The ARN of the IAM role associated with the instance"
+}
+output "security_group_id" {
+  description = "Primary security group ID of the EC2 instance"
+  value       = try(module.ec2-instance.security_group_id, null)
+}
+
+
+
+

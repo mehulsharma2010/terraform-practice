@@ -1,5 +1,5 @@
 
-region = "ap-south-1"
+region = "us-east-2"
 name   = "rems-olly"
 
 # bucket configuration
@@ -23,6 +23,7 @@ cluster_tags = {
   team        = "infra"
   application = "rems"
 }
+
 
 addons = {
   vpc-cni = {
@@ -59,12 +60,47 @@ addons = {
       Team        = "infra"
     }
   }
+
+  metrics-server = {
+    name                        = "metrics-server"
+    resolve_conflicts_on_update = "OVERWRITE"
+    resolve_conflicts_on_create = "OVERWRITE"
+    most_recent                 = true
+    tags = {
+      Environment = "mgmt"
+      Team        = "infra"
+    }
+  }
+
+  aws-ebs-csi-driver = {
+    name                        = "aws-ebs-csi-driver"
+    resolve_conflicts_on_update = "OVERWRITE"
+    resolve_conflicts_on_create = "OVERWRITE"
+    most_recent                 = true
+    tags = {
+      Environment = "mgmt"
+      Team        = "infra"
+    }
+  }
+
+  eks-pod-identity-agent = {
+    name                        = "eks-pod-identity-agent"
+    resolve_conflicts_on_update = "OVERWRITE"
+    resolve_conflicts_on_create = "OVERWRITE"
+    most_recent                 = true
+    tags = {
+      Environment = "mgmt"
+      Team        = "infra"
+    }
+  }
 }
+
 addons_timeouts = {
   create = "15m"
   update = "15m"
   delete = "15m"
 }
+enable_alb_controller = true
 
 enable_auto_mode_custom_tags = true
 
@@ -73,7 +109,7 @@ node_security_group_tags = {
   name        = "rems-eks-node-sg-mgmt"
   environment = "mgmt"
   team        = "infra"
-  application = "rems"
+  application = "rems"  
 }
 enable_cluster_creator_admin_permissions = true
 access_entries = {
@@ -160,35 +196,7 @@ eks_managed_node_groups = {
 
 }
 
-node_security_group_additional_rules = {
 
-  allow_https_ingress = {
-    protocol    = "tcp"
-    from_port   = 22
-    to_port     = 22
-    type        = "ingress"
-    description = "Allow HTTPS traffic from the internet"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  allow_all_internal = {
-    protocol    = "-1"
-    from_port   = 0
-    to_port     = 0
-    type        = "ingress"
-    description = "Allow all traffic from cluster nodes"
-    self        = true
-  }
-
-  allow_cluster_to_nodes = {
-    protocol                      = "tcp"
-    from_port                     = 1025
-    to_port                       = 65535
-    type                          = "ingress"
-    description                   = "Allow traffic from control plane to nodes"
-    source_cluster_security_group = true
-  }
-}
 
 key_name        = "ot-rems-key"
 create_key_pair = false

@@ -1518,3 +1518,8 @@ variable "create_key_pair" {
   default     = false
 }
 
+variable "enable_alb_controller" {
+  description = "Enable AWS Load Balancer Controller deployment"
+  type        = bool
+  default     = true
+}

@@ -467,7 +467,7 @@ variable "ec2_iam_role_permissions_boundary" {
   default     = null
 }
 
-variable "ec2_iam_role_policies" {
+variable "iam_role_policies" {
   description = "Policies attached to the IAM role"
   type        = map(string)
   default     = {}
@@ -513,7 +513,7 @@ variable "security_group_vpc_id" {
   default     = null
 }
 
-variable "ec2_security_group_tags" {
+variable "security_group_tags" {
   description = "A map of additional tags to add to the security group created"
   type        = map(string)
   default     = {}
