@@ -1,6 +1,6 @@
 module "ec2-instance" {
   source  = "terraform-aws-modules/ec2-instance/aws"
-  version = "6.0.2"
+  version = "6.1.1"
 
   # Basic Configuration
   name              = var.ec2_name

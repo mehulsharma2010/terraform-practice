@@ -35,6 +35,7 @@ output "iam_role_arn" {
   value       = module.ec2-instance.iam_role_arn
   description = "The ARN of the IAM role associated with the instance"
 }
+
 output "security_group_id" {
   description = "Primary security group ID of the EC2 instance"
   value       = try(module.ec2-instance.security_group_id, null)
