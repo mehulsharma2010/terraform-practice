@@ -1,11 +1,6 @@
 
-region = "ap-south-1"
+region = "ap-southeast-1"
 name   = "rems-olly"
-
-# bucket configuration
-bucket_region      = "ap-south-1"
-bucket             = "ot-terraform-state-bucket"
-network_bucket_key = "infra/common/network/terraform.tfstate"
 
 create_iam_role            = true
 create_node_iam_role       = true
@@ -23,6 +18,7 @@ cluster_tags = {
   team        = "infra"
   application = "rems"
 }
+
 
 addons = {
   vpc-cni = {
@@ -59,12 +55,47 @@ addons = {
       Team        = "infra"
     }
   }
+
+  metrics-server = {
+    name                        = "metrics-server"
+    resolve_conflicts_on_update = "OVERWRITE"
+    resolve_conflicts_on_create = "OVERWRITE"
+    most_recent                 = true
+    tags = {
+      Environment = "mgmt"
+      Team        = "infra"
+    }
+  }
+
+  aws-ebs-csi-driver = {
+    name                        = "aws-ebs-csi-driver"
+    resolve_conflicts_on_update = "OVERWRITE"
+    resolve_conflicts_on_create = "OVERWRITE"
+    most_recent                 = true
+    tags = {
+      Environment = "mgmt"
+      Team        = "infra"
+    }
+  }
+
+  eks-pod-identity-agent = {
+    name                        = "eks-pod-identity-agent"
+    resolve_conflicts_on_update = "OVERWRITE"
+    resolve_conflicts_on_create = "OVERWRITE"
+    most_recent                 = true
+    tags = {
+      Environment = "mgmt"
+      Team        = "infra"
+    }
+  }
 }
+
 addons_timeouts = {
   create = "15m"
   update = "15m"
   delete = "15m"
 }
+enable_alb_controller = true
 
 enable_auto_mode_custom_tags = true
 
@@ -73,12 +104,12 @@ node_security_group_tags = {
   name        = "rems-eks-node-sg-mgmt"
   environment = "mgmt"
   team        = "infra"
-  application = "rems"
+  application = "rems"  
 }
 enable_cluster_creator_admin_permissions = true
 access_entries = {
   eks_admin = {
-    principal_arn = "arn:aws:iam::017820699516:user/opstree"
+    principal_arn = "arn:aws:iam::135326431947:user/Anjali-Mam1"
     policy_associations = {
       admin = {
         policy_arn = "arn:aws:eks::aws:cluster-access-policy/AmazonEKSClusterAdminPolicy"
@@ -97,10 +128,10 @@ eks_managed_node_groups = {
     name               = "olly"
     # subnet_ids                   = []
     ami_type                   = "AL2023_x86_64_STANDARD"
-    instance_types             = ["t3.medium"]
-    desired_size               = 2
-    min_size                   = 2
-    max_size                   = 4
+    instance_types             = ["t3a.medium"]
+    desired_size               = 1
+    min_size                   = 1
+    max_size                   = 2
     capacity_type              = "SPOT"
     key_name                   = "ot-rems-key"
     create_launch_template     = true
@@ -127,7 +158,7 @@ eks_managed_node_groups = {
     name               = "rems"
     # subnet_ids                  = []
     ami_type                    = "AL2023_x86_64_STANDARD"
-    instance_types              = ["t3.medium"]
+    instance_types              = ["t3a.medium"]
     desired_size                = 1
     min_size                    = 1
     max_size                    = 2
@@ -160,36 +191,8 @@ eks_managed_node_groups = {
 
 }
 
-node_security_group_additional_rules = {
 
-  allow_https_ingress = {
-    protocol    = "tcp"
-    from_port   = 22
-    to_port     = 22
-    type        = "ingress"
-    description = "Allow HTTPS traffic from the internet"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  allow_all_internal = {
-    protocol    = "-1"
-    from_port   = 0
-    to_port     = 0
-    type        = "ingress"
-    description = "Allow all traffic from cluster nodes"
-    self        = true
-  }
-
-  allow_cluster_to_nodes = {
-    protocol                      = "tcp"
-    from_port                     = 1025
-    to_port                       = 65535
-    type                          = "ingress"
-    description                   = "Allow traffic from control plane to nodes"
-    source_cluster_security_group = true
-  }
-}
 
 key_name        = "ot-rems-key"
 create_key_pair = false
-public_key_path = "/Users/mehulsharma/.ssh/id_rsa.pub"
+public_key_path = "/Users/anjalidhiman/.ssh/id_rsa.pub"
