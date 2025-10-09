@@ -1482,23 +1482,6 @@ variable "eks_managed_node_groups" {
 # Remote state / S3
 
 
-variable "bucket" {
-  description = "S3 bucket name for remote state storage"
-  type        = string
-}
-
-variable "network_bucket_key" {
-  description = "S3 key for the network remote state"
-  type        = string
-  default     = ""
-}
-
-variable "bucket_region" {
-  description = "AWS region where the S3 bucket is located"
-  type        = string
-  default     = ""
-
-}
 
 variable "key_name" {
   description = "Key name of the Key Pair to use for the instance; which can be managed using the `aws_key_pair` resource"
