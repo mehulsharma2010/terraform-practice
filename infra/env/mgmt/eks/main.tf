@@ -1,17 +1,17 @@
-module "alb_controller_irsa" {
-  source  = "terraform-aws-modules/iam/aws//modules/iam-role-for-service-accounts-eks"
-  version = "~> 5.0"
+# module "alb_controller_irsa" {
+#   source  = "terraform-aws-modules/iam/aws//modules/iam-role-for-service-accounts-eks"
+#   version = "~> 5.0"
 
-  role_name                              = "${var.name}-alb-controller-irsa"
-  attach_load_balancer_controller_policy = true
+#   role_name                              = "${var.name}-alb-controller-irsa"
+#   attach_load_balancer_controller_policy = true
 
-  oidc_providers = {
-    eks = {
-      provider_arn               = module.eks.oidc_provider_arn
-      namespace_service_accounts = ["kube-system:aws-load-balancer-controller"]
-    }
-  }
-}
+#   oidc_providers = {
+#     eks = {
+#       provider_arn               = module.eks.oidc_provider_arn
+#       namespace_service_accounts = ["kube-system:aws-load-balancer-controller"]
+#     }
+#   }
+# }
 
 
 
@@ -25,7 +25,7 @@ module "eks" {
   create_node_security_group           = var.create_node_security_group
   endpoint_public_access               = var.endpoint_public_access
   node_security_group_name             = var.node_security_group_name
-  node_security_group_additional_rules = local.node_sg_additional_rules
+  node_security_group_additional_rules = var.node_security_group_additional_rules
   addons                               = var.addons
   addons_timeouts                      = var.addons_timeouts
   iam_role_additional_policies         = var.iam_role_additional_policies
@@ -38,7 +38,7 @@ module "eks" {
   eks_managed_node_groups              = var.eks_managed_node_groups
   vpc_id                               = data.terraform_remote_state.network.outputs.vpc_id
   subnet_ids                           = values(local.private_subnets)
-
+  security_group_additional_rules = var.security_group_additional_rules
 
 
   control_plane_subnet_ids                 = values(local.private_subnets)

@@ -95,17 +95,20 @@ addons_timeouts = {
   update = "15m"
   delete = "15m"
 }
-enable_alb_controller = true
+
+# enable_alb_controller = true
 
 enable_auto_mode_custom_tags = true
 
 node_security_group_name = "rems-eks-node-sg-mgmt"
+
 node_security_group_tags = {
   name        = "rems-eks-node-sg-mgmt"
   environment = "mgmt"
   team        = "infra"
   application = "rems"
 }
+
 enable_cluster_creator_admin_permissions = true
 access_entries = {
   eks_admin = {
@@ -194,3 +197,45 @@ eks_managed_node_groups = {
 key_name        = "ot-rems-key"
 create_key_pair = false
 public_key_path = "/Users/mehulsharma/.ssh/id_rsa.pub"
+
+security_group_additional_rules = {
+
+  allow_ssh_ingress = {
+    protocol    = "tcp"
+    from_port   = 22
+    to_port     = 22
+    type        = "ingress"
+    description = "Allow SSH traffic from the internet"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+}
+
+node_security_group_additional_rules = {
+
+  allow_https_ingress = {
+    protocol    = "tcp"
+    from_port   = 22
+    to_port     = 22
+    type        = "ingress"
+    description = "Allow HTTPS traffic from the internet"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  allow_all_internal = {
+    protocol    = "-1"
+    from_port   = 0
+    to_port     = 0
+    type        = "ingress"
+    description = "Allow all traffic from cluster nodes"
+    self        = true
+  }
+
+  allow_cluster_to_nodes = {
+    protocol                      = "tcp"
+    from_port                     = 1025
+    to_port                       = 65535
+    type                          = "ingress"
+    description                   = "Allow traffic from control plane to nodes"
+    source_cluster_security_group = true
+  }
+}
